@@ -3,67 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚗 Desafío de Lógica Automotriz</title>
+    <title>Desafío de Lógica Automotriz</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6f42c1;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #f8f9fa;
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(-45deg, #1e1e3f, #3c1e5a, #2d3a8a, #0d6efd);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .header-section h1 {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            font-size: 3rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-section img {
+            max-width: 450px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            margin: 2rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .header-section img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .header-section p {
+            max-width: 700px;
+            margin: 1rem auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .card-section {
+            padding: 2rem 0 4rem 0;
+        }
+
+        .logic-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .logic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .logic-card .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .logic-card h3 {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .logic-card p {
+            font-weight: 300;
+            min-height: 100px;
+        }
+        
+        /* Wave animation */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.2)" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,245.3C384,245,480,203,576,170.7C672,139,768,117,864,133.3C960,149,1056,203,1152,213.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave-animation 5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .logic-card:hover .wave {
+            opacity: 1;
+        }
+        @keyframes wave-animation {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
+
+        .btn-wave {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .btn-wave:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        .btn-wave:hover:after {
+            transform: scale(4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background-color: rgba(0,0,0,0.2);
+            font-weight: 300;
+        }
+
+        .modal-content {
+            background-color: #2c2c4c;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        .modal-header, .modal-footer {
+            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+        }
+        .modal-title {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 600;
+        }
+        .code-block {
+            background-color: #1e1e3f;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .result-box {
+            background-color: rgba(0,0,0,0.2);
+            border: 1px dashed var(--border-color);
+            padding: 1rem;
+            min-height: 100px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Encabezado -->
     <header class="header-section">
         <div class="container">
-            <h1 class="display-4 fw-bold text-white">🚗 Bienvenido al Desafío de Lógica con Estilo Automotriz</h1>
-            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop" alt="Auto deportivo moderno" class="img-fluid my-4">
-            <p class="lead text-white-50">Explora 4 desafíos de lógica de programación diseñados para estimular tu mente y mejorar tus habilidades técnicas. ¡Prepárate para pensar como un verdadero desarrollador!</p>
+            <h1>🚗 Bienvenido al Desafío de Lógica con Estilo Automotriz</h1>
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop" alt="Auto deportivo moderno">
+            <p>"Explora 4 desafíos de lógica de programación diseñados para estimular tu mente y mejorar tus habilidades técnicas. ¡Prepárate para pensar como un verdadero desarrollador!"</p>
         </div>
     </header>
 
-    <main class="card-section container py-5">
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="logic-card shadow-lg bg-light bg-opacity-10">
-                    <div class="card-icon">🧮</div>
-                    <h3 class="card-title">Números Primos</h3>
-                    <p class="card-text"><strong>Desafío:</strong> Mostrar todos los números primos entre dos valores que el usuario digite.</p>
-                    <button class="btn btn-primary btn-wave w-100" data-bs-toggle="modal" data-bs-target="#primosModal">🔍 Ver solución</button>
-                    <div class="wave"></div>
+    <!-- Sección de Cards -->
+    <main class="card-section">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- Card 1: Números Primos -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="logic-card">
+                        <div class="card-icon">🧮</div>
+                        <h3>Números Primos</h3>
+                        <p><strong>Desafío:</strong> Mostrar todos los números primos entre dos valores que el usuario digite.</p>
+                        <button class="btn btn-primary btn-wave" data-bs-toggle="modal" data-bs-target="#primosModal">🔍 Ver solución</button>
+                        <div class="wave"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="logic-card shadow-lg bg-light bg-opacity-10">
-                    <div class="card-icon">🧠</div>
-                    <h3 class="card-title">Serie Fibonacci</h3>
-                    <p class="card-text"><strong>Desafío:</strong> Mostrar la serie Fibonacci hasta el número que el usuario indique.</p>
-                    <button class="btn btn-warning btn-wave w-100" data-bs-toggle="modal" data-bs-target="#fibonacciModal">🔍 Ver solución</button>
-                    <div class="wave"></div>
+                <!-- Card 2: Serie Fibonacci -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="logic-card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Serie Fibonacci</h3>
+                        <p><strong>Desafío:</strong> Mostrar la serie Fibonacci hasta el número que el usuario indique.</p>
+                        <button class="btn btn-warning text-dark btn-wave" data-bs-toggle="modal" data-bs-target="#fibonacciModal">🔍 Ver solución</button>
+                        <div class="wave"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="logic-card shadow-lg bg-light bg-opacity-10">
-                    <div class="card-icon">⚙️</div>
-                    <h3 class="card-title">Cálculo de IMC</h3>
-                    <p class="card-text"><strong>Desafío:</strong> Calcular el Índice de Masa Corporal usando altura (metros) y peso (libras).</p>
-                    <button class="btn btn-success btn-wave w-100" data-bs-toggle="modal" data-bs-target="#imcModal">🔍 Ver solución</button>
-                    <div class="wave"></div>
+                <!-- Card 3: Cálculo de IMC -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="logic-card">
+                        <div class="card-icon">⚙️</div>
+                        <h3>Cálculo de IMC</h3>
+                        <p><strong>Desafío:</strong> Calcular el Índice de Masa Corporal usando altura (metros) y peso (libras).</p>
+                        <button class="btn btn-success btn-wave" data-bs-toggle="modal" data-bs-target="#imcModal">🔍 Ver solución</button>
+                        <div class="wave"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="logic-card shadow-lg bg-light bg-opacity-10">
-                    <div class="card-icon">🔄</div>
-                    <h3 class="card-title">Palabra Palíndroma</h3>
-                    <p class="card-text"><strong>Desafío:</strong> Verificar si una palabra ingresada es palíndroma.</p>
-                    <button class="btn btn-danger btn-wave w-100" data-bs-toggle="modal" data-bs-target="#palindromoModal">🔍 Ver solución</button>
-                    <div class="wave"></div>
+                <!-- Card 4: Palabra Palíndroma -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="logic-card">
+                        <div class="card-icon">🔄</div>
+                        <h3>Palabra Palíndroma</h3>
+                        <p><strong>Desafío:</strong> Verificar si una palabra ingresada es palíndroma.</p>
+                        <button class="btn btn-danger btn-wave" data-bs-toggle="modal" data-bs-target="#palindromoModal">🔍 Ver solución</button>
+                        <div class="wave"></div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </main>
 
+    <!-- Pie de Página -->
+    <footer>
+        <div class="container">
+            <p>🤖 Materia: Inteligencia Artificial | Sección 710 | Proyecto generado con prompt personalizado por Juancito Peña Vizcaíno</p>
+        </div>
+    </footer>
+
+    <!-- Modales -->
+
+    <!-- Modal 1: Números Primos -->
     <div class="modal fade" id="primosModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -72,30 +277,41 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Explicación y Tips</h6>
-                    <p>Un número primo es divisible solo por 1 y por sí mismo. Para optimizar, solo se necesita comprobar divisores hasta la raíz cuadrada del número. Si no se encuentra un divisor en ese rango, el número es primo. Usa la función <code>Math.sqrt()</code> para esta optimización.</p>
+                    <h6>Explicación Paso a Paso</h6>
+                    <p>Un número primo es un número natural mayor que 1 que solo es divisible por sí mismo y por 1. El algoritmo recorre cada número en el rango proporcionado y verifica esta condición.</p>
+                    
+                    <h6>Tips de Optimización</h6>
+                    <p>Para optimizar, solo necesitamos comprobar divisores hasta la raíz cuadrada del número. Si no se encuentra un divisor en ese rango, el número es primo.</p>
+                    
                     <h6>Código Funcional</h6>
-                    <pre class="code-block"><code>function encontrarPrimos(desde, hasta) {
-    let primos = [];
-    for (let i = desde; i <= hasta; i++) {
-        if (esPrimo(i)) {
-            primos.push(i);
-        }
+                    <pre class="code-block"><code>
+function encontrarPrimos(desde, hasta) {
+  let primos = [];
+  for (let i = desde; i <= hasta; i++) {
+    if (esPrimo(i)) {
+      primos.push(i);
     }
-    return primos;
+  }
+  return primos;
 }
 
 function esPrimo(num) {
-    if (num <= 1) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) return false;
-    }
-    return true;
-}</code></pre>
+  if (num <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+                    </code></pre>
+                    
                     <h6>¡Pruébalo!</h6>
                     <div class="row g-3">
-                        <div class="col-sm-6"><input type="number" id="primoDesde" class="form-control" placeholder="Desde"></div>
-                        <div class="col-sm-6"><input type="number" id="primoHasta" class="form-control" placeholder="Hasta"></div>
+                        <div class="col-sm-6">
+                            <input type="number" id="primoDesde" class="form-control" placeholder="Desde">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="number" id="primoHasta" class="form-control" placeholder="Hasta">
+                        </div>
                     </div>
                     <button class="btn btn-primary mt-3" onclick="ejecutarPrimos()">Ejecutar</button>
                     <div class="result-box mt-3" id="resultadoPrimos"></div>
@@ -104,6 +320,7 @@ function esPrimo(num) {
         </div>
     </div>
     
+    <!-- Modal 2: Serie Fibonacci -->
     <div class="modal fade" id="fibonacciModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -112,28 +329,36 @@ function esPrimo(num) {
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Explicación y Tips</h6>
-                    <p>La serie Fibonacci es una secuencia donde cada número es la suma de los dos anteriores, comenzando con 0 y 1. La solución más eficiente es usar un bucle iterativo en lugar de recursividad, ya que evita la sobrecarga de la pila de llamadas y es más rápido para números grandes.</p>
+                    <h6>Explicación Detallada</h6>
+                    <p>La serie Fibonacci es una secuencia donde cada número es la suma de los dos anteriores, comenzando con 0 y 1. El código genera esta secuencia de forma iterativa para mayor eficiencia.</p>
+                    
+                    <h6>Tips de Optimización</h6>
+                    <p>El enfoque iterativo (con un bucle) es mucho más rápido y consume menos memoria que la recursividad para números grandes, ya que evita recalcular valores.</p>
+
                     <h6>Código Funcional</h6>
-                    <pre class="code-block"><code>function serieFibonacci(limite) {
-    let a = 0, b = 1, resultado = [0];
-    while (b <= limite) {
-        resultado.push(b);
-        let temp = a + b;
-        a = b;
-        b = temp;
-    }
-    return resultado;
-}</code></pre>
+                    <pre class="code-block"><code>
+function serieFibonacci(limite) {
+  let a = 0, b = 1, resultado = [0];
+  while (b <= limite) {
+    resultado.push(b);
+    let temp = a + b;
+    a = b;
+    b = temp;
+  }
+  return resultado;
+}
+                    </code></pre>
+
                     <h6>¡Pruébalo!</h6>
                     <input type="number" id="fibonacciLimite" class="form-control" placeholder="Límite de la serie">
-                    <button class="btn btn-warning mt-3" onclick="ejecutarFibonacci()">Ejecutar</button>
+                    <button class="btn btn-warning text-dark mt-3" onclick="ejecutarFibonacci()">Ejecutar</button>
                     <div class="result-box mt-3" id="resultadoFibonacci"></div>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Modal 3: Cálculo de IMC -->
     <div class="modal fade" id="imcModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -142,23 +367,34 @@ function esPrimo(num) {
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Fórmula y Tips</h6>
-                    <p>La fórmula para el IMC es <code>peso (kg) / (altura (m))^2</code>. Primero se debe convertir el peso de libras a kilogramos (1 lb ≈ 0.453592 kg). Usa <code>parseFloat()</code> para manejar números decimales y <code>toFixed(2)</code> para redondear el resultado.</p>
+                    <h6>Fórmula Explicada</h6>
+                    <p>El Índice de Masa Corporal (IMC) se calcula con la fórmula: <code>peso (kg) / (altura (m))^2</code>. Como el peso se ingresa en libras, primero lo convertimos a kilogramos (1 libra ≈ 0.453592 kg).</p>
+                    
+                    <h6>Tips</h6>
+                    <p>Usa <code>parseFloat()</code> para asegurar que los valores de entrada sean tratados como números decimales. La función <code>toFixed(2)</code> es útil para redondear el resultado a dos decimales.</p>
+
                     <h6>Código Funcional</h6>
-                    <pre class="code-block"><code>function calcularIMC(pesoLibras, alturaMetros) {
-    const pesoKg = pesoLibras * 0.453592;
-    const imc = pesoKg / (alturaMetros * alturaMetros);
-    let categoria = '';
-    if (imc < 18.5) categoria = 'Bajo peso';
-    else if (imc < 24.9) categoria = 'Peso normal';
-    else if (imc < 29.9) categoria = 'Sobrepeso';
-    else categoria = 'Obesidad';
-    return `Tu IMC es ${imc.toFixed(2)} (${categoria})`;
-}</code></pre>
+                    <pre class="code-block"><code>
+function calcularIMC(pesoLibras, alturaMetros) {
+  const pesoKg = pesoLibras * 0.453592;
+  const imc = pesoKg / (alturaMetros * alturaMetros);
+  let categoria = '';
+  if (imc < 18.5) categoria = 'Bajo peso';
+  else if (imc < 24.9) categoria = 'Peso normal';
+  else if (imc < 29.9) categoria = 'Sobrepeso';
+  else categoria = 'Obesidad';
+  return `Tu IMC es ${imc.toFixed(2)} (${categoria})`;
+}
+                    </code></pre>
+                    
                     <h6>¡Pruébalo!</h6>
                     <div class="row g-3">
-                        <div class="col-sm-6"><input type="number" id="imcPeso" class="form-control" placeholder="Peso (libras)"></div>
-                        <div class="col-sm-6"><input type="number" id="imcAltura" class="form-control" placeholder="Altura (metros)"></div>
+                        <div class="col-sm-6">
+                            <input type="number" id="imcPeso" class="form-control" placeholder="Peso (libras)">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="number" id="imcAltura" class="form-control" placeholder="Altura (metros)">
+                        </div>
                     </div>
                     <button class="btn btn-success mt-3" onclick="ejecutarIMC()">Ejecutar</button>
                     <div class="result-box mt-3" id="resultadoIMC"></div>
@@ -167,6 +403,7 @@ function esPrimo(num) {
         </div>
     </div>
 
+    <!-- Modal 4: Palabra Palíndroma -->
     <div class="modal fade" id="palindromoModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -175,18 +412,25 @@ function esPrimo(num) {
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Explicación y Tips</h6>
-                    <p>Un palíndromo se lee igual al derecho y al revés. El código primero estandariza el texto (a minúsculas y sin espacios) y luego lo compara con su versión invertida. La forma más concisa de invertir una cadena en JavaScript es con <code>.split('').reverse().join('')</code>.</p>
+                    <h6>Explicación Lógica</h6>
+                    <p>Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda. El algoritmo primero "limpia" la palabra (convierte a minúsculas y quita espacios) y luego la compara con su versión invertida.</p>
+
+                    <h6>Tips</h6>
+                    <p>El método <code>split('').reverse().join('')</code> es una forma muy concisa y popular en JavaScript para invertir una cadena de texto.</p>
+
                     <h6>Código Funcional</h6>
-                    <pre class="code-block"><code>function esPalindromo(palabra) {
-    const palabraLimpia = palabra.toLowerCase().replace(/\s/g, '');
-    const palabraInvertida = palabraLimpia.split('').reverse().join('');
-    if (palabraLimpia === palabraInvertida) {
-        return `"${palabra}" es un palíndromo.`;
-    } else {
-        return `"${palabra}" no es un palíndromo.`;
-    }
-}</code></pre>
+                    <pre class="code-block"><code>
+function esPalindromo(palabra) {
+  const palabraLimpia = palabra.toLowerCase().replace(/\s/g, '');
+  const palabraInvertida = palabraLimpia.split('').reverse().join('');
+  if (palabraLimpia === palabraInvertida) {
+    return `"${palabra}" es un palíndromo.`;
+  } else {
+    return `"${palabra}" no es un palíndromo.`;
+  }
+}
+                    </code></pre>
+
                     <h6>¡Pruébalo!</h6>
                     <input type="text" id="palindromoPalabra" class="form-control" placeholder="Ingresa una palabra">
                     <button class="btn btn-danger mt-3" onclick="ejecutarPalindromo()">Ejecutar</button>
@@ -196,14 +440,106 @@ function esPrimo(num) {
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>🤖 Materia: Inteligencia Artificial | Sección 710 | Proyecto generado con prompt personalizado por Juancito Peña Vizcaíno</p>
-        </div>
-    </footer>
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    
+    <!-- JavaScript Lógico -->
+    <script>
+        // --- Lógica de Números Primos ---
+        function ejecutarPrimos() {
+            const desde = parseInt(document.getElementById('primoDesde').value);
+            const hasta = parseInt(document.getElementById('primoHasta').value);
+            const resultadoDiv = document.getElementById('resultadoPrimos');
+            
+            if (isNaN(desde) || isNaN(hasta) || desde > hasta || desde < 0) {
+                resultadoDiv.innerHTML = 'Por favor, ingresa un rango válido.';
+                return;
+            }
+
+            let primos = [];
+            for (let i = desde; i <= hasta; i++) {
+                if (esPrimo(i)) {
+                    primos.push(i);
+                }
+            }
+            
+            resultadoDiv.innerHTML = `Números primos encontrados: <br><strong>${primos.join(', ')}</strong>`;
+        }
+
+        function esPrimo(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        // --- Lógica de Serie Fibonacci ---
+        function ejecutarFibonacci() {
+            const limite = parseInt(document.getElementById('fibonacciLimite').value);
+            const resultadoDiv = document.getElementById('resultadoFibonacci');
+
+            if (isNaN(limite) || limite < 0) {
+                resultadoDiv.innerHTML = 'Por favor, ingresa un número límite válido y positivo.';
+                return;
+            }
+
+            let a = 0, b = 1, resultado = [];
+            if (limite >= 0) resultado.push(a);
+
+            while (b <= limite) {
+                resultado.push(b);
+                let temp = a + b;
+                a = b;
+                b = temp;
+            }
+            
+            resultadoDiv.innerHTML = `Serie de Fibonacci hasta ${limite}: <br><strong>${resultado.join(', ')}</strong>`;
+        }
+
+        // --- Lógica de Cálculo de IMC ---
+        function ejecutarIMC() {
+            const pesoLibras = parseFloat(document.getElementById('imcPeso').value);
+            const alturaMetros = parseFloat(document.getElementById('imcAltura').value);
+            const resultadoDiv = document.getElementById('resultadoIMC');
+
+            if (isNaN(pesoLibras) || isNaN(alturaMetros) || pesoLibras <= 0 || alturaMetros <= 0) {
+                resultadoDiv.innerHTML = 'Por favor, ingresa valores válidos para peso y altura.';
+                return;
+            }
+
+            const pesoKg = pesoLibras * 0.453592;
+            const imc = pesoKg / (alturaMetros * alturaMetros);
+            let categoria = '';
+
+            if (imc < 18.5) categoria = 'Bajo peso';
+            else if (imc < 24.9) categoria = 'Peso normal';
+            else if (imc < 29.9) categoria = 'Sobrepeso';
+            else categoria = 'Obesidad';
+            
+            resultadoDiv.innerHTML = `Tu IMC es <strong>${imc.toFixed(2)}</strong>. Clasificación: <strong>${categoria}</strong>.`;
+        }
+
+        // --- Lógica de Palabra Palíndroma ---
+        function ejecutarPalindromo() {
+            const palabra = document.getElementById('palindromoPalabra').value;
+            const resultadoDiv = document.getElementById('resultadoPalindromo');
+
+            if (!palabra || palabra.trim().length === 0) {
+                resultadoDiv.innerHTML = 'Por favor, ingresa una palabra.';
+                return;
+            }
+
+            const palabraLimpia = palabra.toLowerCase().replace(/\s/g, '');
+            const palabraInvertida = palabraLimpia.split('').reverse().join('');
+            
+            if (palabraLimpia === palabraInvertida) {
+                resultadoDiv.innerHTML = `¡Correcto! <strong>"${palabra}"</strong> es un palíndromo.`;
+            } else {
+                resultadoDiv.innerHTML = `<strong>"${palabra}"</strong> no es un palíndromo. (Se lee como "${palabraInvertida}" al revés)`;
+            }
+        }
+    </script>
 
 </body>
 </html>
